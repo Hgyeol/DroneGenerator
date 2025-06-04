@@ -4,13 +4,19 @@ import java.sql.Connection;
 import java.util.List;
 import java.util.Scanner;
 
+import db.DBUtil;
 import db.Postgresql;
 import drone.DroneInfo;
+import drone.DroneInfoMapper;
 
 public class main {
 	public static void main(String[] args) {
-		Postgresql db = new Postgresql();
-		db.dbConnection();
+		
+		DBUtil db = new DBUtil();
+		
+		db.init();
+		
+		DroneInfoMapper droneInfoMapper = db.getSession().getMapper(DroneInfoMapper.class);
 		
 		Scanner sc = new Scanner(System.in);
 		int n;
@@ -26,10 +32,9 @@ public class main {
 			
 			switch(n) {
 				case 1:
-					List<DroneInfo> droneList = DroneInfo.findAll();
-					for(int i = 0; i < droneList.size(); i++) {
-						System.out.println(droneList.get(i));
-					}
+//					for(int i = 0; i < droneList.size(); i++) {
+//						System.out.println(droneList.get(i));
+//					}
 					break;
 				case 2:
 					DroneInfo droneInfo = new DroneInfo();
@@ -37,7 +42,6 @@ public class main {
 					droneInfo.setDroneId(sc.nextLine());
 					System.out.println("드론 최대 범위 : ");
 					droneInfo.setMaxArea(sc.nextDouble());
-					droneInfo.save();
 					break;
 				case 3:
 					String droneId = sc.nextLine();

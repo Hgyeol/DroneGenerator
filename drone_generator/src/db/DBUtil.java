@@ -11,18 +11,22 @@ import drone.DroneInfo;
 import drone.DroneInfoMapper;
 
 public class DBUtil {
+	public static SqlSessionFactory sqlSessionFactory;
+	
 	public void init() {
 		try {
-			String resource = "org/mybatis/example/mybatis-config.xml";
+			String resource = "db/mybatis-config.xml";
 			InputStream inputStream = Resources.getResourceAsStream(resource);
-			SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-			SqlSession session = sqlSessionFactory.openSession();
-			DroneInfoMapper mapper = session.getMapper(DroneInfoMapper.class);
-			
-				
+			sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+//			SqlSession session = sqlSessionFactory.openSession();
+//			DroneInfoMapper mapper = session.getMapper(DroneInfoMapper.class);	
 		} catch(Exception e) {
 			System.out.println("MyBatis 설정 파일 가져오는 중 문제 발생");
 			e.printStackTrace();
 		}
+	}
+	
+	public SqlSession getSession() {
+		return sqlSessionFactory.openSession();
 	}
 }
