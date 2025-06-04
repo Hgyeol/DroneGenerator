@@ -1,8 +1,13 @@
 package drone;
 
+import java.io.IOException;
+
 public class DroneInfo {
 	private String droneId;
 	private double maxArea;
+	private String publicIP;
+	private double startLat;
+	private double startLng;
 	
 	public void generateLocation() {
 		
@@ -26,7 +31,10 @@ public class DroneInfo {
 		return droneId + " : " + maxArea; 
 	}
 	
-	public DroneInfo() {}
+	public DroneInfo() throws IOException {
+		this.publicIP = PublicIP.getPublicIP();
+		
+	}
 	
 	public DroneInfo(String droneId, double maxArea) {
 		this.droneId = droneId;

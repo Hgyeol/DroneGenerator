@@ -1,16 +1,14 @@
 package main;
 
-import java.sql.Connection;
-import java.util.List;
+import java.io.IOException;
 import java.util.Scanner;
 
 import db.DBUtil;
-import db.Postgresql;
 import drone.DroneInfo;
 import drone.DroneInfoMapper;
 
 public class main {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		
 		DBUtil db = new DBUtil();
 		
