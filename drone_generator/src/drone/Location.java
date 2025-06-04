@@ -72,9 +72,9 @@ public class Location {
 		
 		final String requestFullUrl = hostName + baseString;
 		final HttpGet request = new HttpGet(requestFullUrl);
-		//request.setHeader("x-ncp-apigw-timestamp",timestamp);
-		//request.setHeader("x-ncp-iam-access-key",accessKey);
-		//request.setHeader("x-ncp-apigw-signature-v2",signature);
+		request.setHeader("x-ncp-apigw-timestamp",timestamp);
+		request.setHeader("x-ncp-iam-access-key",accessKey);
+		request.setHeader("x-ncp-apigw-signature-v2",signature);
 		
 		final CloseableHttpResponse response;
 		response = httpClient.execute(request);
