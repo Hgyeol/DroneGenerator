@@ -35,16 +35,14 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-public class Location {
+public class GeoLocation {
 	private final String accessKey;
 	private final String secretKey;
-	private final String IP;
 	private final CloseableHttpClient httpClient;
 
-	public Location(final String accessKey, final String secretKey, final String IP) {
+	public GeoLocation(final String accessKey, final String secretKey) {
 		this.accessKey = accessKey;
 		this.secretKey = secretKey;
-		this.IP = IP;
 		
 		final int timeout = 5000;
 		final RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(timeout).setConnectTimeout(timeout).build();

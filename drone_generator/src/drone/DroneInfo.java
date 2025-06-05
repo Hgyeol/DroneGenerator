@@ -1,6 +1,8 @@
 package drone;
 
-import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.util.Map;
 
 public class DroneInfo {
 	private String droneId;
@@ -8,6 +10,7 @@ public class DroneInfo {
 	private String publicIP;
 	private double startLat;
 	private double startLng;
+	private String startAddress;
 	
 	public void generateLocation() {
 		
@@ -31,13 +34,11 @@ public class DroneInfo {
 		return droneId + " : " + maxArea; 
 	}
 	
-	public DroneInfo() throws IOException {
-		this.publicIP = PublicIP.getPublicIP();
-		
-	}
-	
-	public DroneInfo(String droneId, double maxArea) {
-		this.droneId = droneId;
-		this.maxArea = maxArea;
+	public DroneInfo() throws InvalidKeyException, NoSuchAlgorithmException, Exception {
+		publicIP = PublicIP.getPublicIP();
+		GeoLocation geoLocation = new GeoLocation("111", "111");
+		Map<String, Double> location = geoLocation.run(publicIP);
+		startLng = location.get("lng");
+		startLat = location.get("lat");
 	}
 }

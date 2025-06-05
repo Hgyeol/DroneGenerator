@@ -1,6 +1,7 @@
 package main;
 
-import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 
 import db.DBUtil;
@@ -8,7 +9,7 @@ import drone.DroneInfo;
 import drone.DroneInfoMapper;
 
 public class main {
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws InvalidKeyException, NoSuchAlgorithmException, Exception {
 		
 		DBUtil db = new DBUtil();
 		
@@ -40,6 +41,8 @@ public class main {
 					droneInfo.setDroneId(sc.nextLine());
 					System.out.println("드론 최대 범위 : ");
 					droneInfo.setMaxArea(sc.nextDouble());
+					
+					droneInfoMapper.save(droneInfo);
 					break;
 				case 3:
 					String droneId = sc.nextLine();
