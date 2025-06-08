@@ -5,22 +5,24 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Map;
 
 public class DroneInfo {
-	private String droneId;
+	private String id;
 	private double maxArea;
 	private String publicIP;
 	private double startLat;
 	private double startLng;
+	private double lastLat;
+	private double lastLng;
 	private String startAddress;
 	
 	public void generateLocation() {
 		
 	}
 	
-	public String getDroneId() {
-		return droneId;
+	public String getId() {
+		return id;
 	}
-	public void setDroneId(String droneId) {
-		this.droneId = droneId;
+	public void setId(String id) {
+		this.id = id;
 	}
 	public double getMaxArea() {
 		return maxArea;
@@ -29,16 +31,12 @@ public class DroneInfo {
 		this.maxArea = maxArea;
 	}
 	
-	@Override
-	public String toString() {
-		return droneId + " : " + maxArea; 
-	}
-	
 	public DroneInfo() throws InvalidKeyException, NoSuchAlgorithmException, Exception {
 		publicIP = PublicIP.getPublicIP();
-		GeoLocation geoLocation = new GeoLocation("111", "111");
+		GeoLocation geoLocation = new GeoLocation();
 		Map<String, Double> location = geoLocation.run(publicIP);
-		startLng = location.get("lng");
-		startLat = location.get("lat");
+		lastLng = startLng = location.get("lng");
+		lastLat = startLat = location.get("lat");
+		VWorld.locationToAddress(startLng, startLat);
 	}
 }

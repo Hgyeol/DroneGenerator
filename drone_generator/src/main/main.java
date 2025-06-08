@@ -4,18 +4,27 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 
+import org.apache.ibatis.session.SqlSession;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+
 import db.DBUtil;
 import drone.DroneInfo;
 import drone.DroneInfoMapper;
+import test.Log4jTest;
 
 public class main {
+	
 	public static void main(String[] args) throws InvalidKeyException, NoSuchAlgorithmException, Exception {
-		
+		PropertyConfigurator.configure("./resources/log4j.properties");
+		Logger logger = Logger.getLogger(main.class);
 		DBUtil db = new DBUtil();
 		
 		db.init();
+		SqlSession session;
+		DroneInfoMapper droneInfoMapper;
 		
-		DroneInfoMapper droneInfoMapper = db.getSession().getMapper(DroneInfoMapper.class);
+		DroneInfo droneInfo;
 		
 		Scanner sc = new Scanner(System.in);
 		int n;
@@ -36,17 +45,34 @@ public class main {
 //					}
 					break;
 				case 2:
-					DroneInfo droneInfo = new DroneInfo();
+					session = db.getSession();
+					droneInfoMapper = session.getMapper(DroneInfoMapper.class);
+					
+					droneInfo = new DroneInfo();
+					sc.nextLine();
 					System.out.print("드론 아이디 : ");
-					droneInfo.setDroneId(sc.nextLine());
-					System.out.println("드론 최대 범위 : ");
+					droneInfo.setId(sc.nextLine());
+					System.out.print("드론 최대 범위 : ");
 					droneInfo.setMaxArea(sc.nextDouble());
 					
 					droneInfoMapper.save(droneInfo);
+					session.commit();
+					session.close();
+					
+					logger.info(droneInfo.getId() + " 드론이 정상적으로 DB에 저장이 되었습니다.");
 					break;
 				case 3:
+					session = db.getSession();
+					droneInfoMapper = session.getMapper(DroneInfoMapper.class);
+				
+					System.out.print("드론 아이디 : ");
 					String droneId = sc.nextLine();
-					
+				
+					droneInfo = droneInfoMapper.findById(droneId);
+					break;
+				case 4:
+					System.out.println("프로그램 종료");
+					return;
 			}
 			
 		}
