@@ -1,0 +1,9 @@
+[2025-05-17 21:39:59,478] [DEBUG] [Log4jTest.java:10] - debug
+[2025-05-17 21:39:59,482] [INFO ] [Log4jTest.java:11] - info
+[2025-05-17 21:39:59,482] [WARN ] [Log4jTest.java:12] - warn
+[2025-05-17 21:39:59,482] [ERROR] [Log4jTest.java:13] - error
+[2025-05-17 21:39:59,483] [FATAL] [Log4jTest.java:14] - fatal
+[2025-05-17 21:40:53,592] [INFO ] [Log4jTest.java:11] - info
+[2025-05-17 21:40:53,593] [WARN ] [Log4jTest.java:12] - warn
+[2025-05-17 21:40:53,593] [ERROR] [Log4jTest.java:13] - error
+[2025-05-17 21:40:53,594] [FATAL] [Log4jTest.java:14] - fatal

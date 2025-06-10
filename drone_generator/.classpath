@@ -6,7 +6,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="resource"/>
+	<classpathentry kind="src" path="resources"/>
 	<classpathentry kind="lib" path="lib/postgresql-42.7.3.jar"/>
 	<classpathentry kind="lib" path="lib/commons-codec-1.9.jar"/>
 	<classpathentry kind="lib" path="lib/json-simple-1.1.1.jar"/>
@@ -16,5 +16,10 @@
 	<classpathentry kind="lib" path="lib/mybatis-3.5.16.jar"/>
 	<classpathentry kind="lib" path="lib/httpclient-4.5.2.jar"/>
 	<classpathentry kind="lib" path="lib/httpcore-4.4.4.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/reflections-0.10.2.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-api-2.0.17.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-simple-2.0.17.jar"/>
+	<classpathentry kind="lib" path="lib/javassist-3.30.2-GA.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -36,14 +36,11 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 public class GeoLocation {
-	private final String accessKey;
-	private final String secretKey;
+	private final String accessKey = System.getenv("NAVER_GEOLOCATION_ACCESS_KEY");
+	private final String secretKey = System.getenv("NAVER_GEOLOCATION_SECRET_KEY");
 	private final CloseableHttpClient httpClient;
 
-	public GeoLocation(final String accessKey, final String secretKey) {
-		this.accessKey = accessKey;
-		this.secretKey = secretKey;
-		
+	public GeoLocation() {
 		final int timeout = 5000;
 		final RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(timeout).setConnectTimeout(timeout).build();
 		httpClient = HttpClientBuilder.create().setDefaultRequestConfig(requestConfig).build();
@@ -76,7 +73,7 @@ public class GeoLocation {
 		
 		final CloseableHttpResponse response;
 		response = httpClient.execute(request);
-
+		
 		final String msg = getResponse(response);
 		final JSONObject jsonObj = changeStringToJson(msg);
 		Map<String, Double> location = getLocation(jsonObj);
@@ -102,22 +99,21 @@ public class GeoLocation {
 	
 	private String getResponse(final CloseableHttpResponse response) throws Exception {
 		final StringBuffer buffer = new StringBuffer();
-		//final BufferedReader reader = new BufferedReader(new InputStreamReader(response.));
+		final BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
 
 		String msg;
 
-//		try {
-//			while ((msg = reader.readLine()) != null) {
-//				buffer.append(msg);
-//			}
-//		} catch (final Exception e) {
-//			throw e;
-//		} finally {
-//			response.close();
-//		}
+		try {
+			while ((msg = reader.readLine()) != null) {
+				buffer.append(msg);
+			}
+		} catch (final Exception e) {
+			throw e;
+		} finally {
+			response.close();
+		}
 		return buffer.toString();
 	}
-
 	private static SortedMap<String, SortedSet<String>> convertTypeToSortedMap(final Map<String, List<String>> requestParameters) {
 		final SortedMap<String, SortedSet<String>> significateParameters = new TreeMap<String, SortedSet<String>>();
 		final Iterator<String> parameterNames = requestParameters.keySet().iterator();
@@ -149,6 +145,11 @@ public class GeoLocation {
 		return Long.toString(System.currentTimeMillis());
 	}
 
+	/**
+	 * query string 생성
+	 * @param significantParameters
+	 * @return
+	 */
 	private static String getRequestQueryString(final SortedMap<String, SortedSet<String>> significantParameters) {
 		final StringBuilder queryString = new StringBuilder();
 		final Iterator<Map.Entry<String, SortedSet<String>>> paramIt = significantParameters.entrySet().iterator();
@@ -168,6 +169,19 @@ public class GeoLocation {
 		return queryString.toString();
 	}	
 
+
+	/**
+	 * * base string과 timestamp, access key, secret key를 가지고 signature 생성
+	 * @param method
+	 * @param baseString
+	 * @param timestamp
+	 * @param accessKey
+	 * @param secretKey
+	 * @return
+	 * @throws NoSuchAlgorithmException
+	 * @throws UnsupportedEncodingException
+	 * @throws InvalidKeyException
+	 */
 	public String makeSignature(final String method, final String baseString, final String timestamp, final String accessKey, final String secretKey) throws UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException{
 	    String space = " ";                       // one space
 	    String newLine = "\n";                    // new line

@@ -14,7 +14,7 @@ import org.json.simple.parser.ParseException;
 
 public class VWorld {
 	public static String locationToAddress(double lng, double lat) throws MalformedURLException, IOException, ParseException {
-		final String apikey = "0BD03859-1258-3750-B5F1-82AAFF40E77E";
+		final String apikey = System.getenv("VWORLD_API_KEY");
 		String searchType = "road";
 		String searchPoint = lng + "," + lat;
 		String epsg = "epsg:4326";

@@ -16,5 +16,6 @@
   </environments>
   <mappers>
     <mapper resource="drone/DroneInfoMapper.xml"/>
+    
   </mappers>
 </configuration>
