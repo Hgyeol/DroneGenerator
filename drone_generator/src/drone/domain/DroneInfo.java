@@ -1,8 +1,12 @@
-package drone;
+package drone.domain;
 
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Map;
+
+import drone.GeoLocation;
+import drone.PublicIP;
+import drone.VWorld;
 
 public class DroneInfo {
 	private String id;

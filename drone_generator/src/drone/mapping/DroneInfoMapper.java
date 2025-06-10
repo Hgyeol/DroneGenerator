@@ -1,4 +1,6 @@
-package drone;
+package drone.mapping;
+
+import drone.domain.DroneInfo;
 
 public interface DroneInfoMapper {
 	void save(DroneInfo droneInfo);

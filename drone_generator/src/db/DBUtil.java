@@ -7,8 +7,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import drone.DroneInfo;
-import drone.DroneInfoMapper;
+import drone.domain.DroneInfo;
+import drone.mapping.DroneInfoMapper;
 
 public class DBUtil {
 	public static SqlSessionFactory sqlSessionFactory;

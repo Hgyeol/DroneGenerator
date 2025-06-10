@@ -9,8 +9,8 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
 import db.DBUtil;
-import drone.DroneInfo;
-import drone.DroneInfoMapper;
+import drone.domain.DroneInfo;
+import drone.mapping.DroneInfoMapper;
 import test.Log4jTest;
 
 public class main {
