@@ -1,5 +1,6 @@
 package db;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 import org.apache.ibatis.io.Resources;
@@ -11,22 +12,19 @@ import drone.domain.DroneInfo;
 import drone.mapping.DroneInfoMapper;
 
 public class DBUtil {
-	public static SqlSessionFactory sqlSessionFactory;
-	
-	public void init() {
-		try {
-			String resource = "db/mybatis-config.xml";
-			InputStream inputStream = Resources.getResourceAsStream(resource);
-			sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-//			SqlSession session = sqlSessionFactory.openSession();
-//			DroneInfoMapper mapper = session.getMapper(DroneInfoMapper.class);	
-		} catch(Exception e) {
-			System.out.println("MyBatis 설정 파일 가져오는 중 문제 발생");
-			e.printStackTrace();
+	private static SqlSessionFactory sqlSessionFactory = null;;
+	private static final String resource = "db/mybatis-config.xml";
+	public static SqlSessionFactory getSqlSessionFactory() {
+		if(sqlSessionFactory == null) {
+			InputStream inputStream;
+			try {
+				inputStream = Resources.getResourceAsStream(resource);
+				sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+				return sqlSessionFactory;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
-	}
-	
-	public SqlSession getSession() {
-		return sqlSessionFactory.openSession();
+		return sqlSessionFactory;
 	}
 }

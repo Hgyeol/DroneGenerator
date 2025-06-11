@@ -2,18 +2,18 @@ package drone.service;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.session.SqlSessionFactory;
+
 import db.DBUtil;
 import drone.domain.DroneInfo;
 
 public interface DroneService {
-
 	
+	void generateDroneLocation(DroneInfo findDroneInfo);
 	
-	void generateDroneLocation(String id);
+	void save(String id);
 	
-	void saveDroneInfo(DroneInfo droneInfo);
-	
-	void deleteDroneInfo(DroneInfo droneInfo);
+	void deleteById(String id);
 	
 	DroneInfo findById(String id);
 	

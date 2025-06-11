@@ -1,33 +1,29 @@
 package main;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
+import java.util.Set;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
+import org.reflections.Reflections;
 
+import annotation.HangyeolController;
+import annotation.HangyeolMapping;
 import db.DBUtil;
 import drone.domain.DroneInfo;
 import drone.mapping.DroneInfoMapper;
 import test.Log4jTest;
 
 public class main {
-	
-	public static void main(String[] args) throws InvalidKeyException, NoSuchAlgorithmException, Exception {
-		PropertyConfigurator.configure("./resources/log4j.properties");
-		Logger logger = Logger.getLogger(main.class);
-		DBUtil db = new DBUtil();
-		
-		db.init();
-		SqlSession session;
-		DroneInfoMapper droneInfoMapper;
-		
-		DroneInfo droneInfo;
-		
+	public static void main(String[] args) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException {
+		Reflections reflections = new Reflections("test");
+		Set<Class<?>> haveHangyeolControllerClass = reflections.getTypesAnnotatedWith(HangyeolController.class);
 		Scanner sc = new Scanner(System.in);
-		int n;
 		while(true) {
 			System.out.println("=드론 제네레이터=");
 			System.out.println("1. 드론 정보 리스트");
@@ -36,45 +32,27 @@ public class main {
 			System.out.println("4. 종료");
 			System.out.print(">> ");
 			
-			n = sc.nextInt();
-			
-			switch(n) {
-				case 1:
-//					for(int i = 0; i < droneList.size(); i++) {
-//						System.out.println(droneList.get(i));
-//					}
-					break;
-				case 2:
-					session = db.getSession();
-					droneInfoMapper = session.getMapper(DroneInfoMapper.class);
-					
-					droneInfo = new DroneInfo();
-					sc.nextLine();
-					System.out.print("드론 아이디 : ");
-					droneInfo.setId(sc.nextLine());
-					System.out.print("드론 최대 범위 : ");
-					droneInfo.setMaxArea(sc.nextDouble());
-					
-					droneInfoMapper.save(droneInfo);
-					session.commit();
-					session.close();
-					
-					logger.info(droneInfo.getId() + " 드론이 정상적으로 DB에 저장이 되었습니다.");
-					break;
-				case 3:
-					session = db.getSession();
-					droneInfoMapper = session.getMapper(DroneInfoMapper.class);
-				
-					System.out.print("드론 아이디 : ");
-					String droneId = sc.nextLine();
-				
-					droneInfo = droneInfoMapper.findById(droneId);
-					break;
-				case 4:
-					System.out.println("프로그램 종료");
-					return;
+			String n = sc.nextLine();
+			System.out.println(n);
+			Outerloop: for(Class<?> c : haveHangyeolControllerClass) {
+				System.out.println(c.getName());
+				Method[] methods = c.getDeclaredMethods();
+				for(Method method : methods) {
+					if(method.isAnnotationPresent(HangyeolMapping.class)) {
+						HangyeolMapping hangyeolMapping = method.getAnnotation(HangyeolMapping.class);
+						String value = hangyeolMapping.value();
+						System.out.println("value : " + value);
+						if(n.equals(value)) {
+							Object instance = c.getDeclaredConstructor().newInstance();
+							System.out.println("======Running Method======");
+							System.out.println("Method : " + method.getName() + ", Value : " + value);
+							method.invoke(instance);
+							break Outerloop;
+						}
+					}
+				}
 			}
-			
 		}
+		
 	}
 }

@@ -18,10 +18,6 @@ public class DroneInfo {
 	private double lastLng;
 	private String startAddress;
 	
-	public void generateLocation() {
-		
-	}
-	
 	public String getId() {
 		return id;
 	}
@@ -35,7 +31,30 @@ public class DroneInfo {
 		this.maxArea = maxArea;
 	}
 	
-	public DroneInfo() throws InvalidKeyException, NoSuchAlgorithmException, Exception {
+	public double getLastLat() {
+		return lastLat;
+	}
+
+	public void setLastLat(double lastLat) {
+		this.lastLat = lastLat;
+	}
+
+	public double getLastLng() {
+		return lastLng;
+	}
+
+	public void setLastLng(double lastLng) {
+		this.lastLng = lastLng;
+	}
+	
+	public String getStartAddress() {
+		return startAddress;
+	}
+
+	public DroneInfo() {}
+	
+	public DroneInfo(String id) throws InvalidKeyException, NoSuchAlgorithmException, Exception {
+		this.id = id;
 		publicIP = PublicIP.getPublicIP();
 		GeoLocation geoLocation = new GeoLocation();
 		Map<String, Double> location = geoLocation.run(publicIP);

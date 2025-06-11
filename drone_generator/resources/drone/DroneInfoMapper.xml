@@ -14,4 +14,10 @@
 	<select id="findAll" resultType="drone.DroneInfo" timeout="5">
 		select * from drone_info
 	</select>
+	<update id="updateById" timeout="5"> 
+		update drone_info set last_lng = #{lastLng}, last_lat = #{lastLat} where id = #{id}
+	</update>
+	<delete id="deleteById" timeout="5">
+		delete from drone_info where id = #{id}
+	</delete>
 </mapper>
