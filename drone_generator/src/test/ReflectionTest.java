@@ -47,56 +47,56 @@ public class ReflectionTest {
 		
 	}
 }
-
-@HangyeolController
-class TestController {
-	String hg = "hangyeol";
-	Scanner sc = new Scanner(System.in);
-	
-	@HangyeolMapping(value="1")
-	public void showDroneList() {
-		System.out.println("dron1, dron2, dron3");
-	}
-	
-	@HangyeolMapping(value="2")
-	public void addDrone() {
-		System.out.print("드론 아이디 : ");
-		String droneId = sc.nextLine();
-		System.out.println(droneId + " 등록 완료!");
-	}
-}
-
-@HangyeolController
-class Test2Controller {
-	String hg = "hangyeol";
-	Scanner sc = new Scanner(System.in);
-	
-	@HangyeolMapping(value="3")
-	public void generateLocation() {
-		System.out.print("드론 아이디 : ");
-		String droneId = sc.nextLine();
-		System.out.println(droneId + " 좌표 생성 완료!");
-	}
-	
-	@HangyeolMapping(value="4")
-	public void end() {
-		System.exit(0);
-	}
-}
-
-class Test3Controller {
-	String hg = "hangyeol";
-	Scanner sc = new Scanner(System.in);
-	
-	@HangyeolMapping(value="2")
-	public void generateLocation() {
-		System.out.print("드론 아이디 : ");
-		String droneId = sc.nextLine();
-		System.out.println(droneId + " 좌표 생성 완료!");
-	}
-	
-	@HangyeolMapping(value="4")
-	public void end() {
-		System.exit(0);
-	}
-}
+//
+//@HangyeolController
+//class TestController {
+//	String hg = "hangyeol";
+//	Scanner sc = new Scanner(System.in);
+//	
+//	@HangyeolMapping(value="1")
+//	public void showDroneList() {
+//		System.out.println("dron1, dron2, dron3");
+//	}
+//	
+//	@HangyeolMapping(value="2")
+//	public void addDrone() {
+//		System.out.print("드론 아이디 : ");
+//		String droneId = sc.nextLine();
+//		System.out.println(droneId + " 등록 완료!");
+//	}
+//}
+//
+//@HangyeolController
+//class Test2Controller {
+//	String hg = "hangyeol";
+//	Scanner sc = new Scanner(System.in);
+//	
+//	@HangyeolMapping(value="3")
+//	public void generateLocation() {
+//		System.out.print("드론 아이디 : ");
+//		String droneId = sc.nextLine();
+//		System.out.println(droneId + " 좌표 생성 완료!");
+//	}
+//	
+//	@HangyeolMapping(value="4")
+//	public void end() {
+//		System.exit(0);
+//	}
+//}
+//
+//class Test3Controller {
+//	String hg = "hangyeol";
+//	Scanner sc = new Scanner(System.in);
+//	
+//	@HangyeolMapping(value="2")
+//	public void generateLocation() {
+//		System.out.print("드론 아이디 : ");
+//		String droneId = sc.nextLine();
+//		System.out.println(droneId + " 좌표 생성 완료!");
+//	}
+//	
+//	@HangyeolMapping(value="4")
+//	public void end() {
+//		System.exit(0);
+//	}
+//}
